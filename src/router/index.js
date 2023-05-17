@@ -7,6 +7,8 @@ import Product from '@/views/Product.vue'
 import UserManagement from '@/views/UserManagement.vue'
 import Coupons from '@/views/Coupons.vue'
 import {useUserStore} from '@/store/user.js'
+import Payment from '@/views/Payment.vue'
+import Categories from '@/views/Categories.vue'
 const routes = [
   {
     path: '/',
@@ -42,6 +44,16 @@ const routes = [
     path: '/coupons',
     name: 'Coupons',
     component: Coupons
+  },
+  {
+    path: '/payment',
+    name: 'Payment',
+    component: Payment
+  },
+  {
+    path: '/categories',
+    name: 'Categories',
+    component: Categories
   },
   {
     path: '/about',
