@@ -236,21 +236,12 @@
         this.users = [
           {
             Id_usuario: 1,
-            Nombre_usu: 'John',
-            Apellido_usu: 'Doe',
-            Email: 'johndoe@example.com',
-            Password: 'password1',
-            Id_cupon: 12345,
+            Nombre_usu: 'Jorge Luis',
+            Apellido_usu: 'Gutierrez Moreno',
+            Email: 'jorge@gmail.com',
+            Password: 'coquito5',
+            Id_cupon: 1,
             Id_rol: 1,
-          },
-          {
-            Id_usuario: 2,
-            Nombre_usu: 'Jane',
-            Apellido_usu: 'Smith',
-            Email: 'janesmith@example.com',
-            Password: 'password2',
-            Id_cupon: 54321,
-            Id_rol: 2,
           },
           // ...
         ]

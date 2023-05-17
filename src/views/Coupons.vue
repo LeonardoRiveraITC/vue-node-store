@@ -112,11 +112,13 @@
     methods: {
       initialize() {
         this.coupons = [
-          { id: 'C001', discount: 10 },
-          { id: 'C002', discount: 20 },
-          { id: 'C003', discount: 30 },
-          { id: 'C004', discount: 40 },
-          { id: 'C005', discount: 50 },
+          { id: '1', discount: 75 },
+          { id: '2', discount: 50 },
+          { id: '3', discount: 45 },
+          { id: '4', discount: 30 },
+          { id: '5', discount: 20 },
+          { id: '6', discount: 10 },
+          { id: '7', discount: 5 },
         ];
       },
   
