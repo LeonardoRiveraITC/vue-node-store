@@ -4,6 +4,8 @@ import Login from '@/views/Login.vue'
 import Profile from '@/views/Profile.vue'
 import Conversion from '@/views/CurrencyConversion.vue'
 import Product from '@/views/Product.vue'
+import UserManagement from '@/views/UserManagement.vue'
+import Coupons from '@/views/Coupons.vue'
 import {useUserStore} from '@/store/user.js'
 const routes = [
   {
@@ -30,6 +32,16 @@ const routes = [
     path: '/calc',
     name: 'Calc',
     component: Conversion
+  },
+  {
+    path: '/users',
+    name: 'UserManagement',
+    component: UserManagement
+  },
+  {
+    path: '/coupons',
+    name: 'Coupons',
+    component: Coupons
   },
   {
     path: '/about',

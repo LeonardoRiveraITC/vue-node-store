@@ -30,5 +30,7 @@ let drawer=ref(true)
 const navLinks=[
     {title:"Home",to:"/",icon:"mdi-home-circle"},
     {title:"Mi perfil",to:"profile",icon:"mdi-card-account-details"},
+    {title:"Usuarios",to:"users",icon:"mdi-account"},
+    {title:"Cupones",to:"coupons",icon:"mdi-tag-plus"},
 ]
 </script>
