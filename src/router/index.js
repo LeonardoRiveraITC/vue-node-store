@@ -3,6 +3,7 @@ import HomeView from '@/views/HomeView.vue'
 import Login from '@/views/Login.vue'
 import Profile from '@/views/Profile.vue'
 import Conversion from '@/views/CurrencyConversion.vue'
+import Product from '@/views/Product.vue'
 import {useUserStore} from '@/store/user.js'
 const routes = [
   {
@@ -15,6 +16,11 @@ const routes = [
     name: 'Login',
     component: Login
   }, 
+  {
+    path: '/product/:id',
+    name: 'Product',
+    component: Product
+  },
   {
     path: '/profile',
     name: 'Profile',
@@ -39,10 +45,10 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach(async (to, from) => {
-  const userStore=useUserStore();
-  if (!userStore.username && to.name !== 'Login') {
-    return { name: 'Login' }
-  }
-})
+//  router.beforeEach(async (to, from) => {
+//    const userStore=useUserStore();
+//    if (!userStore.username && to.name !== 'Login') {
+//      return { name: 'Login' }
+//    }
+//})
 export default router
