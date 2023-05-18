@@ -5,7 +5,7 @@
       >
         <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-        <v-toolbar-title>Conversión de monedas</v-toolbar-title>
+        <v-toolbar-title>E-store</v-toolbar-title>
 
         <v-spacer></v-spacer>
 
@@ -29,8 +29,6 @@ import {ref} from "vue"
 let drawer=ref(true)
 const navLinks=[
     {title:"Home",to:"/",icon:"mdi-home-circle"},
-    {title:"Conversion de monedas",to:"calc",icon:"mdi-circle-multiple"},
     {title:"Mi perfil",to:"profile",icon:"mdi-card-account-details"},
-    {title:"Clima",to:"climate",icon:"mdi-cloud-circle"},
 ]
 </script>
