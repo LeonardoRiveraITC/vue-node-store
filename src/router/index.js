@@ -39,10 +39,4 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach(async (to, from) => {
-  const userStore=useUserStore();
-  if (!userStore.username && to.name !== 'Login') {
-    return { name: 'Login' }
-  }
-})
 export default router
