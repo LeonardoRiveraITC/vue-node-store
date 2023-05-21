@@ -5,11 +5,11 @@
         @submit.prevent="onSubmit">
         
         <v-text-field
-          v-model="user"
+          v-model="email"
           :rules="[required]"
           class="mb-2"
           clearable
-          label="Username"> 
+          label="Email"> 
         </v-text-field>
 
         <v-text-field
@@ -20,6 +20,29 @@
           label="Password">
         </v-text-field>
 
+        <v-text-field
+          v-model="password"
+          type="password"
+          :rules="[required]"
+          clearable
+          label="Password">
+        </v-text-field>
+
+        <v-text-field
+          v-model="password"
+          type="password"
+          :rules="[required]"
+          clearable
+          label="Password">
+        </v-text-field>
+
+        <v-text-field
+          v-model="password"
+          type="password"
+          :rules="[required]"
+          clearable
+          label="Password">
+        </v-text-field>
         <br>
 
         <v-btn
@@ -32,7 +55,7 @@
           Sign In
         </v-btn>
       </v-form>
-      <a class="text-subtitle-1">¿Aún no tienes una cuenta?</a><router-link class="text-blue text-subtitle-1" to="register"> Registrate </router-link>
+      <a class="text-subtitle-1">¿Ya tienes una cuenta?</a><router-link class="text-blue text-subtitle-1" to="login"> Inicia sesión </router-link>
     </v-card> 
 </template>
 
@@ -44,8 +67,15 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 //state methods
-const user=ref('');
+const email=ref('');
 const password=ref('');
+const lastName=ref('');
+const name=ref('');
+const phone=ref('');
+const city=ref('');
+const state=ref('');
+const postalCode=ref('');
+const direction=ref('');
 const form=ref(false);
 const required = (v) =>{return !!v || 'Field is required'}
 const userStore=useUserStore();

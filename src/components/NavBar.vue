@@ -5,7 +5,7 @@
       >
 <v-img :src="logo"/>
           <v-list-item v-for="item in navLinks" :key="item.id" :prepend-icon="item.icon" :title="item.title" :to="item.to"/> 
-              <v-list-item  prepend-icon="mdi-card-account-details" :title="userStore.username ? 'Mi cuenta': 'Login'" :to="userStore.username ? 'account':'profile'"/> 
+              <v-list-item  prepend-icon="mdi-card-account-details" :title="userStore.username ? 'Mi cuenta': 'Login'" :to="userStore.username ? 'profile':'login'"/> 
         <v-spacer></v-spacer>
         <p class="cartNotification">{{cartStore.getItemsNumber}}</p>  
         <v-list-item  prepend-icon="mdi-cart" title="Carrito" to="cart"/> 
