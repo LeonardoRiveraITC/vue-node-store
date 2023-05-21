@@ -2,17 +2,22 @@
     <v-container>
         <v-card
             class="mx-auto"
-            max-width="350" 
-            max-height="400" 
+            max-width="500" 
+            max-height="600" 
             > 
             <v-row no-gutters>
                 <v-col>
                     <v-card-text>
-                        <div>Seller</div>
+                        <div>{{product.seller}}</div>
                         <p class="text-h4 text--primary">
                         {{product.name}} 
-                        </p>
-                        <p>{{product.rev}}</p>
+                        </p>    
+                        <v-rating
+                          disabled
+                          v-model="rate"
+                          bg-color="orange-lighten-1"
+                          color="green"
+                        ></v-rating>
                         <div class="text--primary">
                             {{product.desc}}
                         </div>
@@ -34,7 +39,7 @@
                         size="125"
                         rounded="0"
                         >
-                        <v-img src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"></v-img>
+                        <v-img :src="product.img"></v-img>
                     </v-avatar>
                 </v-col>
             </v-row>
@@ -42,9 +47,10 @@
     </v-container>
 </template>
 <script setup>
-    import {ref,computed,onMounted} from 'vue';
+import {ref,computed,onMounted} from 'vue';
 const props = defineProps({
 product: {},
 })
+let rate=ref(props.product.rev);
 </script>
 
