@@ -2,8 +2,8 @@
     <v-container>
         <v-card
             class="mx-auto"
-            max-width="500" 
-            max-height="600" 
+            max-width="450" 
+            max-height="400" 
             > 
             <v-row no-gutters>
                 <v-col>
@@ -13,6 +13,7 @@
                         {{product.name}} 
                         </p>    
                         <v-rating
+                           size="x-small"
                           disabled
                           v-model="rate"
                           bg-color="orange-lighten-1"

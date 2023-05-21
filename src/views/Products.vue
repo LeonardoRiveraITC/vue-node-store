@@ -1,6 +1,10 @@
 <template>
 <v-container>
-        <ProductCardSm v-for="item in product" :product="item" />
+    <v-row>
+    <v-col cols=4 v-for="item in product" >
+        <ProductCardSm  :product="item" />
+    </v-col>   
+    </v-row>
 </v-container>
 </template>
 
