@@ -1,5 +1,7 @@
 <template>
+<v-container>
         <ProductCardSm v-for="item in product" :product="item" />
+</v-container>
 </template>
 
 <script setup>

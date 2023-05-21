@@ -3,7 +3,6 @@
         color=""
         prominent
       >
-        <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
         <v-toolbar-title>FiguraX</v-toolbar-title>
           <v-list-item v-for="item in navLinks" :key="item.id" :prepend-icon="item.icon" :title="item.title" :to="item.to"/> 
@@ -21,7 +20,6 @@ import {useUserStore} from '@/store/user.js'
 const cartStore=useCartStore();
 const userStore=useUserStore();
 import {ref} from "vue"
-let drawer=ref(true)
 const navLinks=[
     {title:"Home",to:"/",icon:"mdi-home"},
     {title:"Productos",to:"products",icon:"mdi-duck"},
