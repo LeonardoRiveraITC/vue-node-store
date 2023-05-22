@@ -8,11 +8,14 @@
       <router-view/>
     </v-main>
     </v-container>
+    <v-spacer></v-spacer>
+    <Footer />
   </v-app>  
 </template>
 
 <script setup>
 import NavBar from './components/NavBar.vue'
+import Footer from './components/Footer.vue'
 import {useUserStore} from '@/store/user.js'
 //state methods
 const userStore=useUserStore();
