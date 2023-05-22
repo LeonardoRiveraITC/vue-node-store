@@ -1,9 +1,6 @@
 <template>
     <v-container>
         <v-card
-            class="mx-auto"
-            max-width="450" 
-            max-height="400" 
             > 
             <v-row no-gutters>
                 <v-col>
@@ -36,7 +33,6 @@
                 </v-col>
                 <v-col>
                     <v-avatar
-                        class="ma-3"
                         size="125"
                         rounded="0"
                         >

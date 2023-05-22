@@ -1,9 +1,13 @@
 <template>
   <v-app>
+  <v-container>
   <nav-bar /> 
+  <v-spacer/>
+  <v-spacer/>
     <v-main>
       <router-view/>
     </v-main>
+    </v-container>
   </v-app>  
 </template>
 

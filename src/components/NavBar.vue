@@ -3,7 +3,7 @@
         color=""
         prominent
       >
-<v-img :src="logo"/>
+<v-img :to="Home" :src="logo"/>
           <v-list-item v-for="item in navLinks" :key="item.id" :prepend-icon="item.icon" :title="item.title" :to="item.to"/> 
               <v-list-item  prepend-icon="mdi-card-account-details" :title="userStore.username ? 'Mi cuenta': 'Login'" :to="userStore.username ? 'profile':'login'"/> 
         <v-spacer></v-spacer>
