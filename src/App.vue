@@ -8,8 +8,7 @@
       <router-view/>
     </v-main>
     </v-container>
-    <v-spacer></v-spacer>
-    <Footer />
+    <Footer class="footer"/>
   </v-app>  
 </template>
 
@@ -29,5 +28,11 @@ const userStore=useUserStore();
   border: 2px solid red;
   clear: both;
   text-align: center;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2%;            /* Footer height */
 }
 </style>

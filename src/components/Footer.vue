@@ -1,5 +1,5 @@
 <template>
-  <v-footer class="d-flex flex-column">
+  <v-footer class="footer d-flex flex-column">
     <div class="bg-teal d-flex w-100 align-center px-4">
       <strong>Nuestras redes </strong>
 
@@ -25,4 +25,3 @@
 <script setup>
       const icons = [{icon:"mdi-github",link:"https://github.com/LeonardoRiveraITC/"},{icon:"mdi-linkedin",link:"https://www.linkedin.com/in/luis-leonardo-rivera-4a7a03136/"}] 
 </script>
-

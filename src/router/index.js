@@ -4,8 +4,14 @@ import Products from '@/views/Products.vue'
 import Login from '@/views/Login.vue'
 import Profile from '@/views/Profile.vue'
 import Conversion from '@/views/CurrencyConversion.vue'
+import Product from '@/views/Product.vue'
 import {useUserStore} from '@/store/user.js'
 const routes = [
+  {
+    path: '/product/:id',
+    name: 'product',
+    component: Product 
+  },
   {
     path: '/',
     name: 'home',
