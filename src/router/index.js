@@ -5,8 +5,14 @@ import Login from '@/views/Login.vue'
 import Profile from '@/views/Profile.vue'
 import Conversion from '@/views/CurrencyConversion.vue'
 import Product from '@/views/Product.vue'
+import CartView from '@/views/Cart.vue'
 import {useUserStore} from '@/store/user.js'
 const routes = [
+  {
+    path: '/cart',
+    name: 'cart',
+    component: CartView 
+  },
   {
     path: '/product/:id',
     name: 'product',

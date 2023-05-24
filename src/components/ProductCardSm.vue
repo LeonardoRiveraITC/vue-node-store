@@ -48,7 +48,7 @@
 import {ref,computed,onMounted} from 'vue';
 import {useCartStore} from '@/store/cart.js'
 
-const cartStore=useCartStore
+const cartStore=useCartStore()
 const props = defineProps({
 product: {},
 textOnly: false,
