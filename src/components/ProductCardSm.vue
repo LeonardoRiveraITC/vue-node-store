@@ -17,13 +17,15 @@
                           color="green"
                         ></v-rating>
                         <div class="text--primary">
+                            {{product.price}}
+                        </div>
+                        <div class="text--primary">
                             {{product.desc}}
                         </div>
                     </v-card-text>
 
-                    <v-card-actions>
+                    <v-card-actions v-show="props.enabled">
                         <v-btn
-                            :v-show="textOnly"
                             variant="text"
                             color="blue"
                             @click="cartStore.addCartItem(product)"
@@ -50,9 +52,10 @@ import {useCartStore} from '@/store/cart.js'
 
 const cartStore=useCartStore()
 const props = defineProps({
-product: {},
-textOnly: false,
+enabled: Boolean,
+product: {}, 
 })
 let rate=ref(props.product.rev);
+onMounted(()=>{console.log(props.enabled)})
 </script>
 

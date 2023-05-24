@@ -19,32 +19,27 @@
           clearable
           label="Password">
         </v-text-field>
-
         <v-text-field
-          v-model="password"
-          type="password"
+          v-model="number"
+          type="phone"
           :rules="[required]"
           clearable
-          label="Password">
+          label="Telefono">
         </v-text-field>
-
         <v-text-field
-          v-model="password"
-          type="password"
+          v-model="firstName"
+          type="phone"
           :rules="[required]"
           clearable
-          label="Password">
+          label="Nombre">
         </v-text-field>
-
         <v-text-field
-          v-model="password"
-          type="password"
+          v-model="lastName"
+          type="phone"
           :rules="[required]"
           clearable
-          label="Password">
+          label="Apellidos">
         </v-text-field>
-        <br>
-
         <v-btn
          :disabled="!form"
           @click="login"
@@ -70,17 +65,12 @@ const route = useRoute()
 const email=ref('');
 const password=ref('');
 const lastName=ref('');
-const name=ref('');
+const firstname=ref('');
 const phone=ref('');
-const city=ref('');
-const state=ref('');
-const postalCode=ref('');
-const direction=ref('');
 const form=ref(false);
 const required = (v) =>{return !!v || 'Field is required'}
 const userStore=useUserStore();
 const login=()=>{
-  console.log(user.value)
   userStore.login(user.value);
   router.push({ name: 'home'})
 }

@@ -20,7 +20,7 @@
  		   show-arrows
  		 >
       <v-slide-group-item v-for="items in product" :key="n"> 
-        <ProductCardSm :product="items" />
+        <ProductCardSm :enabled="true" :product="items" />
       </v-slide-group-item> 
     </v-slide-group>
     </v-row>

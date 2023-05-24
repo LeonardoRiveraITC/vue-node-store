@@ -9,20 +9,17 @@ export const useCartStore = defineStore('cart', {
     //[id:{data}]
     actions: {
         addCartItem(item){
-            if(this.items.length<1){
+            let ind
+            this.items.forEach((el,index)=>{
+                if(el.item.id==item.id){
+                     ind=index
+                }
+            })
+            if (ind !=undefined){
+                this.items[ind].amount+=1
+            }else{
                 item = {item,amount:1};
                 this.items.push(item);
-
-            }else{
-
-                this.items.forEach((el,index) => {
-                    if(el.id===item.id){
-                        this.items[index].amount +=1 
-                    }else{
-                        item={item,amount:1}
-                        this.items.push(item);
-                    }
-                });
             }
         },
         removeCardItem(item){
@@ -35,7 +32,7 @@ export const useCartStore = defineStore('cart', {
             })
         },
         deleteCarItem(index){
-            this.items.delete(index);
+            this.items.splice(index,1)
         },
         emptyCar(){
             this.items=[]

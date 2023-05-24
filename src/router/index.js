@@ -6,8 +6,14 @@ import Profile from '@/views/Profile.vue'
 import Conversion from '@/views/CurrencyConversion.vue'
 import Product from '@/views/Product.vue'
 import CartView from '@/views/Cart.vue'
+import RegisterView from '@/views/Register.vue'
 import {useUserStore} from '@/store/user.js'
 const routes = [
+  {
+    path: '/register',
+    name: 'register',
+    component: RegisterView 
+  },
   {
     path: '/cart',
     name: 'cart',
@@ -32,19 +38,6 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: Profile
-  },
-  {
-    path: '/calc',
-    name: 'Calc',
-    component: Conversion
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
     path: '/products',
