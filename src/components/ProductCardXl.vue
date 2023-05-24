@@ -18,7 +18,7 @@
                     </v-sheet>
             </v-col>
                 <v-col>
-                    <v-card-text>
+                    <v-card-text> 
                         <div class="text-h4 text--primary">{{product.seller}}</div>
                         <p class="text-h2 text--primary">
                         {{product.name}} 

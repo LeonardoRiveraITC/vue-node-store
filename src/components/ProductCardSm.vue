@@ -23,9 +23,10 @@
 
                     <v-card-actions>
                         <v-btn
+                            :v-show="textOnly"
                             variant="text"
                             color="blue"
-                            @click=""
+                            @click="cartStore.addCartItem(product)"
                             >
                             Añadir a la cesta 
                         </v-btn>
@@ -45,8 +46,12 @@
 </template>
 <script setup>
 import {ref,computed,onMounted} from 'vue';
+import {useCartStore} from '@/store/cart.js'
+
+const cartStore=useCartStore
 const props = defineProps({
 product: {},
+textOnly: false,
 })
 let rate=ref(props.product.rev);
 </script>
