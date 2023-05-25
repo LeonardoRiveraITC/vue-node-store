@@ -16,8 +16,8 @@
                           bg-color="orange-lighten-1"
                           color="green"
                         ></v-rating>
-                        <div class="text--primary">
-                            {{product.price}}
+                        <div class=" text-h5 text--primary">
+                            $ {{product.price}}
                         </div>
                         <div class="text--primary">
                             {{product.desc}}

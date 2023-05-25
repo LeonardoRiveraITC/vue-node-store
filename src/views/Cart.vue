@@ -18,6 +18,9 @@
         <v-btn @click="cartStore.deleteCarItem(index)" class="flex align-center justify-left" icon="mdi-trash-can"><v-icon color="red"></v-icon></v-btn>
     </v-col>
         </v-row>
+        <v-card>
+                <div class="text-h5 text--primary">Resumen de compra</div>
+        </v-card>
 </template>
 
 <script setup>

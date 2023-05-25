@@ -2,8 +2,12 @@ import { defineStore } from 'pinia'
 export const useCartStore = defineStore('cart', {
     state: () => ({ 
         items: [],
+        total: 0
     }),
     getters: {
+        getTotalProce: (state) => { state.total=0; state.items.forEach(el=>{
+                state.total+=el.amount*el.item.price
+        })},
         getItemsNumber: (state) => state.items.length || 0,
     },
     //[id:{data}]
