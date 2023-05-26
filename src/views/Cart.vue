@@ -19,7 +19,45 @@
     </v-col>
         </v-row>
         <v-card>
-                <div class="text-h5 text--primary">Resumen de compra</div>
+            <div class="text-center">
+                <v-dialog
+                    v-model="dialog"
+                    width="auto"
+                >
+                <template v-slot:activator="{ props }">
+                    <v-btn
+                        color="primary"
+                        v-bind="props"
+                    >
+                    Realizar compra
+                    </v-btn>
+                </template>
+                    <v-card>
+                        <v-card-title class="text-left text-h5"> Resumen compra </v-card-title>
+                        <br>
+                        <v-card-title class="text-left text-h6"> Total a pagar: </v-card-title>
+                        <v-card-title class="text-left text-h6"> Elija metodo de pago </v-card-title>
+                        <v-combobox
+                            style="width: 200px; margin-left: 15px;"
+                            label="Metodo Pago"
+                            :items="['Pago con tarjeta', 'Pago en efectivo']"
+                        ></v-combobox>
+                        <v-card-title class="text-left text-h6"> Indique su direccion de envio </v-card-title>
+                        <v-text-field 
+                            style="width: 500px; margin-left: 15px;"
+                            label="Direccion"
+                            clearable
+                        ></v-text-field>
+                        <v-btn
+                            block
+                            color="success"
+                            size="large"
+                            variant="elevated">
+                        Realizar compra
+                        </v-btn>
+                    </v-card>
+                </v-dialog>
+            </div>
         </v-card>
 </template>
 
@@ -33,5 +71,6 @@ const isCarEmpty = computed(()=>{
     })
 onMounted(()=>{
 })
+const dialog = ref(false)
 </script>
 

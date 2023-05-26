@@ -7,6 +7,9 @@ import Conversion from '@/views/CurrencyConversion.vue'
 import Product from '@/views/Product.vue'
 import CartView from '@/views/Cart.vue'
 import RegisterView from '@/views/Register.vue'
+import EditProfile from '@/views/EditProfile.vue'
+import PayMethod from '@/views/PayMethod.vue'
+import Direction from '@/views/Direction.vue'
 import {useUserStore} from '@/store/user.js'
 const routes = [
   {
@@ -43,7 +46,22 @@ const routes = [
     path: '/products',
     name: 'products',
     component: Products  
+  },
+  {
+    path: '/editprofile',
+    name: 'EditProfile',
+    component: EditProfile  
   }, 
+  {
+    path: '/paymethod',
+    name: 'PayMethod',
+    component: PayMethod
+  }, 
+  {
+    path: '/direction',
+    name: 'Direction',
+    component: Direction 
+  },  
 ]
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
