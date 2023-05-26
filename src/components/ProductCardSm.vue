@@ -6,7 +6,7 @@
                 <v-col> 
                     <v-card-text>
                         <div>{{product.seller}}</div>
-                        <p class="text-h4 text--primary">
+                        <p class="text-h5 text--primary">
                         {{product.nombre_p}} 
                         </p>    
                         <v-rating

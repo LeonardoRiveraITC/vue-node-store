@@ -6,7 +6,6 @@
             v-for="item in banner"
             :key="item.index"
             :src="item.img"
-            cover
           >
             <p class="text-subtitle-2">{{item.text}}</p>
           </v-carousel-item>
@@ -34,7 +33,7 @@ import {useProductStore} from '@/store/products.js'
 import { onMounted } from 'vue';
 const productStore = useProductStore(); 
 //state methods
-const banner = [{text:"Hasta 12 meses sin interéses en tarjetas de crédito banamex. Solo válido desde el 30 de mayo al 1 de julio del año en curso",img:"https://1000marcas.net/citibanamex-logo/"},{text:"Promociones especiales para tu primer compra",img:"https://cdn.vuetifyjs.com/images/cards/docks.jpg"}]
+const banner = [{text:"Hasta 12 meses sin interéses en tarjetas de crédito banamex. Solo válido desde el 30 de mayo al 1 de julio del año en curso",img:"https://becas.news/wp-content/uploads/banamex_large2x_mar28.1xAcDvlZrnDZmu9ofPturd.png"},{text:"Promociones especiales para tu primer compra",img:"https://cdn.shopify.com/s/files/1/0210/2968/3222/articles/trending_products_to_sell_in_India_ad8fc9e0-5052-44bf-bd93-7bec4335f5ee.jpg?v=1647462399"}]
 const userStore=useUserStore();
 onMounted(()=>{
         productStore.fillItemList()

@@ -1,11 +1,17 @@
 import { defineStore } from 'pinia'
+import axios from 'axios'
 export const useUserStore = defineStore('user', {
   state: () => ({ 
     username: '',
-    firstName:'Leonardo',
-    lastName:'Rivera',
-    linkedIn:'https://www.linkedin.com/in/luis-leonardo-rivera-4a7a03136/',
-    github:'https://github.com/LeonardoRiveraITC'
+    firstName:'',
+    lastName:'',
+    email:'',
+    phone:'',
+    city:'',
+    state:'',
+    dir:'',
+    cp:'',
+    role:''
    }),
   getters: {
     fullName: (state) => state.firstName+' '+state.lastName,
@@ -33,10 +39,23 @@ export const useUserStore = defineStore('user', {
       this.fullName=fname;
       this.lastName=lname;
     },
-    login(user) {
-      //fetch user from backend
-      this.username=user
-      //set response to store
+    login(email,pass) {
+        let url=import.meta.env.VITE_APP_API_HOST+":"+import.meta.env.VITE_APP_API_PORT+'/login' 
+        axios.post(url,{
+            email:email,
+            password:pass
+        }).then(res=>{
+            this.username=res.data.nombre_usu
+            this.firstName=res.data.nombre_usu
+            this.lastName=res.data.apellidos_usu
+            this.email=res.data.email
+            this.phone=res.data.telefono
+            this.city=res.data.ciudad
+            this.state=res.data.state
+            this.dir=res.data.direccion
+            this.cp=res.data.codigo_postal
+            this.role=res.data.id_rol
+        })
     },
     logout(){
       //clean token and userdata

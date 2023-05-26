@@ -7,19 +7,13 @@
                         class="mx-auto"
                         max-width="800"
                         >
-                        <v-slide-group 
-                            class="ma-auto" 
-                            show-arrows
-                            >
-                            <v-slide-group-item v-for="items in product.images" :key="n"> 
-                                <v-img @click="main=items" width="100" height="100" :src="items"/> 
-                            </v-slide-group-item> 
-                        </v-slide-group>
+                                <v-img @click="main=items" width="800" height="800" :src="product.imagen"/> 
                     </v-sheet>
             </v-col>
                 <v-col class="d-flex align-center justify-center">
                     <v-card-text class="flex align-center justify-center" > 
                         <div class="text-h4 text--primary">{{seller['usuario.nombre_usu']}}</div>
+                        <div class="text-h2 text--primary">{{product.nombre_p}}</div>
                         <v-rating
                           size="large"
                           disabled
