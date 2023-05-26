@@ -1,9 +1,9 @@
 <template>
     <v-container>
-        <v-card
-            > 
+        <v-card 
+           @click="toPage(product.id)"> 
             <v-row no-gutters>
-                <v-col>
+                <v-col> 
                     <v-card-text>
                         <div>{{product.seller}}</div>
                         <p class="text-h4 text--primary">
@@ -49,8 +49,9 @@
 <script setup>
 import {ref,computed,onMounted} from 'vue';
 import {useCartStore} from '@/store/cart.js'
-
+import { useRouter,useRoute } from 'vue-router';
 const cartStore=useCartStore()
+const router = useRouter();
 const props = defineProps({
 enabled: Boolean,
 product: {}, 
@@ -58,5 +59,8 @@ product: {},
 //let rate=ref(props.product.rev);
 let rate = 5;
 onMounted(()=>{console.log(props.enabled)})
+const toPage=(idProd)=>{
+  router.push({ name: 'product', params:{id:idProd}})
+}
 </script>
 
