@@ -4,7 +4,7 @@
         prominent
       >
 <v-img :to="Home" :src="logo" max-height="100" max-width="100"/>
-          <v-list-item v-for="item in navLinks" :key="item.id" :prepend-icon="item.icon" :title="item.title" :to="item.to"/> 
+          <v-list-item v-for="item in navLinks" :key="item.id" :prepend-icon="item.icon" :title="item.title" :to="{'name':item.name}"/> 
               <v-list-item  prepend-icon="mdi-card-account-details" :title="userStore.username ? 'Mi cuenta': 'Login'" :to="userStore.username ? 'profile':'login'"/> 
         <v-spacer></v-spacer>
         <p class="cartNotification">{{cartStore.getItemsNumber}}</p>  
@@ -21,7 +21,7 @@ const cartStore=useCartStore();
 const userStore=useUserStore();
 import {ref} from "vue"
 const navLinks=[
-    {title:"Home",to:"/",icon:"mdi-home"},
-    {title:"Productos",to:"products",icon:"mdi-duck"},
+    {title:"Home",name:"home",icon:"mdi-home"},
+    {title:"Productos",name:"products",icon:"mdi-duck"},
 ]
 </script>
