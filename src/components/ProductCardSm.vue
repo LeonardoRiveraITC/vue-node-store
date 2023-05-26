@@ -7,7 +7,7 @@
                     <v-card-text>
                         <div>{{product.seller}}</div>
                         <p class="text-h4 text--primary">
-                        {{product.name}} 
+                        {{product.nombre_p}} 
                         </p>    
                         <v-rating
                            size="x-small"
@@ -17,10 +17,10 @@
                           color="green"
                         ></v-rating>
                         <div class=" text-h5 text--primary">
-                            $ {{product.price}}
+                            $ {{product.precio}}
                         </div>
                         <div class="text--primary">
-                            {{product.desc}}
+                            {{product.descripcion}}
                         </div>
                     </v-card-text>
 
@@ -39,7 +39,7 @@
                         size="125"
                         rounded="0"
                         >
-                        <v-img :src="product.img"></v-img>
+                        <v-img :src="product.imagen"></v-img>
                     </v-avatar>
                 </v-col>
             </v-row>
@@ -55,7 +55,8 @@ const props = defineProps({
 enabled: Boolean,
 product: {}, 
 })
-let rate=ref(props.product.rev);
+//let rate=ref(props.product.rev);
+let rate = 5;
 onMounted(()=>{console.log(props.enabled)})
 </script>
 
