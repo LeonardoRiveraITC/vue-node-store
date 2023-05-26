@@ -23,16 +23,6 @@
                             {{product.descripcion}}
                         </div>
                     </v-card-text>
-
-                    <v-card-actions v-show="props.enabled">
-                        <v-btn
-                            variant="text"
-                            color="blue"
-                            @click="cartStore.addCartItem(product)"
-                            >
-                            Añadir a la cesta 
-                        </v-btn>
-                    </v-card-actions>
                 </v-col>
                 <v-col>
                     <v-avatar
@@ -43,6 +33,17 @@
                     </v-avatar>
                 </v-col>
             </v-row>
+        </v-card>
+        <v-card>
+                    <v-card-actions v-show="props.enabled">
+                        <v-btn
+                            variant="text"
+                            color="blue"
+                            @click="cartStore.addCartItem(product)"
+                            >
+                            Añadir a la cesta 
+                        </v-btn>
+                    </v-card-actions>
         </v-card>
     </v-container>
 </template>

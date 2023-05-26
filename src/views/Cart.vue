@@ -25,7 +25,7 @@
                 <div v-for="item in cartStore.items">
                    <p>{{item.item.nombre_p}} x {{item.amount}}={{item.amount*item.item.precio}}</p> 
                 </div>
-                    <p>Total: {{cartStore.total}}</p>
+                    <p>Total: {{cartStore.getTotalPrice}}</p>
                 <v-dialog
                     v-model="dialog"
                     width="auto"
