@@ -8,7 +8,7 @@
               <v-list-item  prepend-icon="mdi-card-account-details" :title="userStore.username ? 'Mi cuenta': 'Login'" :to="userStore.username ? 'profile':'login'"/> 
         <v-spacer></v-spacer>
         <p class="cartNotification">{{cartStore.getItemsNumber}}</p>  
-        <v-list-item  prepend-icon="mdi-cart"  to="cart"/> 
+        <v-list-item  prepend-icon="mdi-cart"  :to="{'name':'cart'}"/> 
       </v-app-bar>
 
 </template>

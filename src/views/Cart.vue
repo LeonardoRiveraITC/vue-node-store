@@ -7,19 +7,25 @@
     </v-col>
     <v-col cols="2" class="d-flex align-center justify-left">
     <v-text-field
+             @change="()=>{if(item.amount<=1) item.amount=1}" 
              class="flex align-center justify-left"  
              v-model="item.amount"
              hide-details
              single-line
-              type="number"
+             type="number"
             />
     </v-col>
     <v-col class="d-flex align-center justify-left">
         <v-btn @click="cartStore.deleteCarItem(index)" class="flex align-center justify-left" icon="mdi-trash-can"><v-icon color="red"></v-icon></v-btn>
     </v-col>
         </v-row>
-        <v-card>
+        <v-col v-show="!isCarEmpty" style="position: fixed; top:30%;left: 70%;" cols="3">
+        <v-card >
             <div class="text-center">
+                <div v-for="item in cartStore.items">
+                   <p>{{item.item.nombre_p}} x {{item.amount}}={{item.amount*item.item.precio}}</p> 
+                </div>
+                    <p>Total: {{cartStore.total}}</p>
                 <v-dialog
                     v-model="dialog"
                     width="auto"
@@ -59,6 +65,7 @@
                 </v-dialog>
             </div>
         </v-card>
+        </v-col>
 </template>
 
 <script setup>

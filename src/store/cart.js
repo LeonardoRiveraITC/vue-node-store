@@ -6,7 +6,7 @@ export const useCartStore = defineStore('cart', {
     }),
     getters: {
         getTotalProce: (state) => { state.total=0; state.items.forEach(el=>{
-                state.total+=el.amount*el.item.price
+                state.total+=el.amount*el.item.precio
         })},
         getItemsNumber: (state) => state.items.length || 0,
     },
