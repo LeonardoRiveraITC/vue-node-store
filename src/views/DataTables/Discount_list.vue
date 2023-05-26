@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="discount"
+    :items="discountStore.disc"
     :sort-by="[{ key: 'id_cupon', order: 'asc' }]"
     class="elevation-1"
   >
@@ -125,25 +125,25 @@
  
 <script setup>
 import { ref, computed } from 'vue'
+import { onMounted } from 'vue';
 import { VDataTable } from 'vuetify/labs/VDataTable'
+import { useDiscountStore } from '@/store/discount.js';
 
+const discountStore = useDiscountStore();
 const dialog = ref(false)
 const dialogDelete = ref(false)
 const headers = [
-  { title: 'Id_cupon', key: 'id_cupon'},
-  { title: 'Descuento', key: 'Descuento' },
-  { title: 'Dias_validez', key: 'Dias_validez' },
-  { title: 'Activo', key: 'Activo' },
+  { title: 'Id_cupon', key: 'id'},
+  { title: 'Descuento', key: 'descuento' },
+  { title: 'Dias_validez', key: 'dias_validez' },
+  { title: 'Activo', key: 'activo' },
   { title: 'Actions', key: 'actions', sortable: false },
 ]
-const discount = ref([
-  {
-      id_cupon: '1',
-      Descuento: '30',
-      Dias_validez: '10',
-      Activo: 'No'
-    },
-])
+
+onMounted(() => {
+  discountStore.fillDiscountList();
+})
+
 const editedIndex = ref(-1)
 const editedItem = ref({
   id_cupon: '',

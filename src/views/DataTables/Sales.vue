@@ -8,7 +8,7 @@
   <v-data-table
     v-model:items-per-page="itemsPerPage"
     :headers="headers"
-    :items="Sales"
+    :items="salesStore.sales"
     item-value="name"
     class="elevation-1"
   ></v-data-table>
@@ -16,35 +16,31 @@
 </template>
 
 <script setup>
-import { ref} from 'vue'
 import { VDataTable } from 'vuetify/labs/VDataTable'
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, Colors } from 'chart.js'
-  
+import { onMounted } from 'vue';
+import { useSalesStore } from '@/store/sales.js'
+
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, Colors)
 
+const salesStore = useSalesStore();
+
 const headers = [
-  { title: 'Id_orden_compra', key: 'Id_orden_compra'},
-  { title: 'Fecha', key: 'Fecha' },
-  { title: 'Total', key: 'Total' },
-  { title: 'Direccion', key: 'Direccion' },
-  { title: 'Clave_compra', key: 'Clave_compra' },
-  { title: 'Id_usuario', key: 'Id_usuario' },
-  { title: 'Id_vendedor', key: 'Id_vendedor' },
-  { title: 'Id_metodop', key: 'Id_metodop' }
+  { title: 'Id_orden_compra', key: 'id'},
+  { title: 'Fecha', key: 'fecha' },
+  { title: 'Total', key: 'total' },
+  { title: 'Direccion', key: 'a_domicilio' },
+  { title: 'Direccion', key: 'direccion' },
+  { title: 'Clave_compra', key: 'clave_compra' },
+  { title: 'Id_usuario', key: 'id_usuario' },
+  { title: 'Id_cupon', key: 'id_cupon' },
+  { title: 'Id_metodop', key: 'id_metodop' }
 ]
-const Sales = ref([
-  {
-      Id_orden_compra: '1',
-      Fecha: '23-05-2023',
-      Total: 298.50,
-      Direccion: 'calle #912',
-      Clave_compra: 'figX001',
-      Id_usuario: '1',
-      Id_vendedor: '5',
-      Id_metodop: '1'
-    }
-])
+
+onMounted(() => {
+  salesStore.fillSalesList();
+})
 
 const chartData = {
     labels: [ 'Enero', 'Febrero', 'Marzo', 'Abril',

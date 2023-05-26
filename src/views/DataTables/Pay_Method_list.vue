@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="pay_method"
+    :items="payMStore.payM"
     :sort-by="[{ key: 'Id_metodop', order: 'asc' }]"
     class="elevation-1"
   >
@@ -101,21 +101,23 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { onMounted } from 'vue';
 import { VDataTable } from 'vuetify/labs/VDataTable'
+import { usepayMStore } from '@/store/paymet.js';
 
+const payMStore = usepayMStore();
 const dialog = ref(false)
 const dialogDelete = ref(false)
 const headers = [
-  { title: 'Id_metodop', key: 'Id_metodop'},
-  { title: 'Metodo_Pago', key: 'Metodo_Pago' },
+  { title: 'Id_metodop', key: 'id'},
+  { title: 'Metodo_Pago', key: 'metodop' },
   { title: 'Actions', key: 'actions', sortable: false },
 ]
-const pay_method = ref([
-  {
-      Id_metodop: '1',
-      Metodo_Pago: 'Tarjeta'
-    },
-])
+
+onMounted(() => {
+  payMStore.fillpayMList();
+})
+
 const editedIndex = ref(-1)
 const editedItem = ref({
   Id_metodop: '',

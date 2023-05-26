@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="category"
+    :items="categoryStore.category"
     :sort-by="[{ key: 'Id_categoria', order: 'asc' }]"
     class="elevation-1"
   >
@@ -102,20 +102,22 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { VDataTable } from 'vuetify/labs/VDataTable'
+import { onMounted } from 'vue';
+import { useCategoryStore } from '@/store/category.js';
 
+const categoryStore = useCategoryStore();
 const dialog = ref(false)
 const dialogDelete = ref(false)
 const headers = [
-  { title: 'Id_categoria', key: 'Id_categoria'},
-  { title: 'Categoria', key: 'Categoria' },
+  { title: 'Id_categoria', key: 'id'},
+  { title: 'Categoria', key: 'categoria' },
   { title: 'Actions', key: 'actions', sortable: false },
 ]
-const category = ref([
-  {
-      Id_categoria: '1',
-      Categoria: 'Anime'
-    },
-])
+
+onMounted(() => {
+  categoryStore.fillCategoryList();
+})
+
 const editedIndex = ref(-1)
 const editedItem = ref({
   Id_categoria: '',
