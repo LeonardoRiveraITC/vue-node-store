@@ -7,7 +7,7 @@ export const useProductStore = defineStore('product', {
     getters: {},
     actions: { 
         async fillItemList(){
-            if(this.product.length<1){
+            if(this.product.length<=0){
             let url=import.meta.env.VITE_APP_API_HOST+":"+import.meta.env.VITE_APP_API_PORT+'/productos' 
             let data
               await axios.get(url).then(function(res){
