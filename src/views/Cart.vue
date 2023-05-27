@@ -26,6 +26,7 @@
                    <p>{{item.item.nombre_p}} x {{item.amount}}={{item.amount*item.item.precio}}</p> 
                 </div>
                     <p>Total: {{cartStore.getTotalPrice}}</p>
+                    <p v-if="isCuponValid" >Cupon valido, tienes un {{cartStore.cupones.descuento}} para esta compra. Precio final: {{cartStore.getTotalPrice-(cartStore.getTotalPrice*cartStore.cupones.descuento)/100}} </p> 
                 <v-dialog
                     v-model="dialog"
                     width="auto"
@@ -37,22 +38,37 @@
                     >
                     Realizar compra
                     </v-btn>
+                <v-text-field
+                         label="cupon"  
+                         @change="validateCupon()"
+                         class="flex align-center justify-left"  
+                         v-model="cupon"
+                         hide-details
+                         single-line
+                    />
                 </template>
-                    <v-card>
+                    <v-card v-if="userStore.email">
                         <v-card-title class="text-left text-h5"> Resumen compra </v-card-title>
                         <br>
-                        <v-card-title class="text-left text-h6"> Total a pagar: </v-card-title>
-                        <v-card-title class="text-left text-h6"> Elija metodo de pago </v-card-title>
+                        <v-card-title class="text-left text-h6"> Configure metodo de pago </v-card-title>
+                        <p>Por su seguridad, no almacenamos esta información en ningún momento y solo la usaremos para procesar el pago </p>
                         <v-combobox
                             style="width: 200px; margin-left: 15px;"
                             label="Metodo Pago"
-                            :items="['Pago con tarjeta', 'Pago en efectivo']"
+                            :items="['Pago con tarjeta', 'PayPal']"
                         ></v-combobox>
-                        <v-card-title class="text-left text-h6"> Indique su direccion de envio </v-card-title>
+                        <v-text-field
+                         label="Tarjeta"  
+                         class="flex align-center justify-left"  
+                         hide-details
+                         single-line
+                    />
+                        <v-card-title class="text-left text-h6"> Confirme su direccion de envio </v-card-title>
                         <v-text-field 
+                            v-model="userStore.dir"
                             style="width: 500px; margin-left: 15px;"
                             label="Direccion"
-                            clearable
+                            disabled
                         ></v-text-field>
                         <v-btn
                             block
@@ -60,6 +76,16 @@
                             size="large"
                             variant="elevated">
                         Realizar compra
+                        </v-btn>
+                    </v-card>
+                    <v-card v-if="!userStore.email">
+                        <v-card-title class="text-left text-h5"> Para continuar, debes iniciar sesión</v-card-title>
+                        <v-btn
+                            to="/login"
+                            color="success"
+                            size="large"
+                            variant="elevated">
+                        Iniciar sesión
                         </v-btn>
                     </v-card>
                 </v-dialog>
@@ -71,13 +97,20 @@
 <script setup>
 import ProductCardSm from '@/components/ProductCardSm.vue'
 import {useCartStore} from '@/store/cart.js'
+import {useUserStore} from '@/store/user.js'
 import {ref,onMounted,computed} from 'vue'
 const cartStore=useCartStore();
+const userStore=useUserStore();
+const validateCupon=()=>{
+      cartStore.findCupon(cupon.value)  
+    }
 const isCarEmpty = computed(()=>{
         return cartStore.items.length > 0  ? false : true 
     })
-onMounted(()=>{
-})
+const isCuponValid = computed(()=>{
+        return cartStore.cupones.codigo != undefined ? true:false 
+    })
+const cupon = ref('');
 const dialog = ref(false)
 </script>
 

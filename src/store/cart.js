@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia'
+import axios from 'axios'
 export const useCartStore = defineStore('cart', {
     state: () => ({ 
         items: [],
+        cupones: [],
         total: 0
     }),
     getters: {
@@ -13,9 +15,19 @@ export const useCartStore = defineStore('cart', {
             return total;
         },
         getItemsNumber: (state) => state.items.length || 0,
+        cuponExists: (state) => state.cupones.codigo ? true : false,
     },
     //[id:{data}]
     actions: {
+        findCupon(cupon){
+            let data
+            let url=import.meta.env.VITE_APP_API_HOST+":"+import.meta.env.VITE_APP_API_PORT+'/search/cupones_desc' 
+               axios.post(url,{
+                  codigo:cupon
+              }).then(res=>{
+                  this.cupones=res.data
+               })
+        },
         addCartItem(item){
             let ind
             this.items.forEach((el,index)=>{
