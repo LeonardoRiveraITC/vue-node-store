@@ -2,8 +2,7 @@
 <v-card elevation="18" append-icon="mdi-account" class="mx-auto my-12 px-6 py-8" max-width="50%">
       <v-form
         v-model="form"
-        @submit.prevent="onSubmit">
-        
+       > 
         <v-text-field
           v-model="email"
           :rules="[required]"
@@ -20,29 +19,50 @@
           label="Password">
         </v-text-field>
         <v-text-field
-          v-model="number"
-          type="phone"
+          v-model="phone"
           :rules="[required]"
           clearable
           label="Telefono">
         </v-text-field>
         <v-text-field
           v-model="firstName"
-          type="phone"
           :rules="[required]"
           clearable
           label="Nombre">
         </v-text-field>
         <v-text-field
           v-model="lastName"
-          type="phone"
           :rules="[required]"
           clearable
           label="Apellidos">
         </v-text-field>
+        <v-text-field
+          v-model="city"
+          :rules="[required]"
+          clearable
+          label="ciudad">
+        </v-text-field>
+        <v-text-field
+          v-model="state"
+          :rules="[required]"
+          clearable
+          label="estado">
+        </v-text-field>
+        <v-text-field
+          v-model="dir"
+          :rules="[required]"
+          clearable
+          label="direccion">
+        </v-text-field>
+        <v-text-field
+          v-model="cp"
+          :rules="[required]"
+          clearable
+          label="Codigo postal">
+        </v-text-field>
         <v-btn
          :disabled="!form"
-          @click="login"
+          @click="register()"
           block
           color="success"
           size="large"
@@ -65,8 +85,12 @@ const route = useRoute()
 const email=ref('');
 const password=ref('');
 const lastName=ref('');
-const firstname=ref('');
+const firstName=ref('');
 const phone=ref('');
+const city=ref('');
+const state=ref('');
+const dir=ref('');
+const cp=ref('');
 const form=ref(false);
 const required = (v) =>{return !!v || 'Field is required'}
 const userStore=useUserStore();
@@ -74,4 +98,7 @@ const login=()=>{
   userStore.login(user.value);
   router.push({ name: 'home'})
 }
+const register=()=>{
+        userStore.register(firstName.value,lastName.value,email.value,password.value,phone.value,city.value,state.value,dir.value,cp.value)
+    }
 </script>
