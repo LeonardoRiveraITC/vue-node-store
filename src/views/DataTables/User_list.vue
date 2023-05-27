@@ -22,6 +22,7 @@
         >
           <template v-slot:activator="{ props }">
             <v-btn
+             @click="editMode=false"
               color="primary"
               dark
               class="mb-2"
@@ -142,22 +143,31 @@
                 Cancelar
               </v-btn>
               <v-btn
+                v-if="!editMode"
                 color="blue-darken-1"
                 variant="text"
-                @click="save"
+                @click="save(editedItem)"
+              >
+                Guardar
+              </v-btn>
+              <v-btn
+                v-if="editMode"
+                color="blue-darken-1"
+                variant="text"
+                @click="editUser(editedItem)"
               >
                 Guardar
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-dialog  max-width="500px">
           <v-card>
             <v-card-title class="text-h5">Seguro que deseas borrar este usuario?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue-darken-1" variant="text" @click="closeDelete">Cancelar</v-btn>
-              <v-btn color="blue-darken-1" variant="text" @click="deleteItemConfirm">Borrar</v-btn>
+              <v-btn color="blue-darken-1" variant="text" click="deleteUser(editedItem.id)">Borrar</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -168,13 +178,13 @@
       <v-icon
         size="small"
         class="me-2"
-        @click="showDialog(item.raw)"
+        @click="editMode=true;showDialog(item.raw)"
       >
         mdi-pencil
       </v-icon>
       <v-icon
         size="small"
-        @click="deleteItem(item.raw)"
+        @click="deleteUser(item.raw.id)"
       >
         mdi-delete
       </v-icon>
@@ -183,7 +193,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onUpdated} from 'vue'
 import { VDataTable } from 'vuetify/labs/VDataTable'
 import { onMounted } from 'vue';
 import { useUsersStore } from '@/store/users.js';
@@ -205,12 +215,14 @@ const headers = [
   { title: 'Actions', key: 'actions', sortable: false },
 ]
 
+
 onMounted(() => {
   userStore.fillUserList();
 })
 
+const editMode=ref(false)
 const editedIndex = ref(-1)
-const editedItem = ref({})
+let editedItem = ref({})
 
 const formTitle = computed(() => {
   return editedIndex.value === -1 ? 'Nuevo usuario' : 'Editar usuario'
@@ -221,15 +233,27 @@ const showDialog = (item) => {
   dialog.value = true
 }
 
-const save = () =>{
+const clean = () =>{
+    editedItem=[]
+}
+const save = (editedItem) =>{
   userStore.addUser(editedItem)
-  userStore.fillUserList();
+  setTimeout(() => {userStore.fillUserList()},1500);
+  close()
+}
+const deleteUser = (id) =>{
+  userStore.deleteUser(id)
+  setTimeout(() => {userStore.fillUserList()},1500);
+  close()
+}
+const editUser = (editedItem) =>{
+  userStore.editUser(editedItem)
+  setTimeout(() => {userStore.fillUserList()},1400);
   close()
 }
 
 const close = () => {
   dialog.value = false
-  editedItem.value = { ...defaultItem.value }
   editedIndex.value = -1
 }
 
