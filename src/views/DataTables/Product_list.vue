@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="products"
+    :items="productStore.product"
     :sort-by="[{ key: 'Id_producto', order: 'asc' }]"
     class="elevation-1"
   >
@@ -184,31 +184,29 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { onMounted } from 'vue';
 import { VDataTable } from 'vuetify/labs/VDataTable'
+import { useProductStore } from '@/store/products.js';
 
+const productStore = useProductStore();
 const dialog = ref(false)
 const dialogDelete = ref(false)
+
 const headers = [
-  { title: 'Id_producto', key: 'Id_producto'},
-  { title: 'Producto', key: 'Producto' },
-  { title: 'Descripcion', key: 'Descripcion' },
-  { title: 'Precio', key: 'Precio' },
-  { title: 'Imagen', key: 'Imagen' },
-  { title: 'Id_categoria', key: 'Id_categoria' },
-  { title: 'Id_vendedor', key: 'Id_vendedor' },
+  { title: 'Id_producto', key: 'id'},
+  { title: 'Producto', key: 'nombre_p' },
+  { title: 'Descripcion', key: 'descripcion' },
+  { title: 'Precio', key: 'precio' },
+  { title: 'Imagen', key: 'imagen' },
+  { title: 'Id_categoria', key: 'id_categoria' },
+  { title: 'Id_vendedor', key: 'id_vendedor' },
   { title: 'Actions', key: 'actions', sortable: false },
 ]
-const products = ref([
-  {
-      Id_producto: '1',
-      Producto: 'Naruto',
-      Descripcion: 'Figura de naruto',
-      Precio: 250,
-      Imagen: 'naruto.png',
-      Id_categoria: '1',
-      Id_vendedor: '1'
-    },
-])
+
+onMounted(() => {
+  productStore.fillItemList();
+})
+
 const editedIndex = ref(-1)
 const editedItem = ref({
   Id_producto: '',

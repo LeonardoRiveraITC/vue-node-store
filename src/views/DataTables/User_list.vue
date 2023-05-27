@@ -1,11 +1,11 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="users"
-    :sort-by="[{ key: 'id_usuario', order: 'asc' }]"
+    :items="userStore.user"
+    :sort-by="[{ key: 'id_user', order: 'asc' }]"
     class="elevation-1"
   >
-    <template v-slot:top>
+  <template v-slot:top>
       <v-toolbar
         flat
       >
@@ -44,7 +44,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.nombre"
+                      v-model="editedItem.nombre_usu"
                       label="Nombre"
                     ></v-text-field>
                   </v-col>
@@ -54,7 +54,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.apellidos"
+                      v-model="editedItem.apellidos_usu"
                       label="Apellidos"
                     ></v-text-field>
                   </v-col>
@@ -168,7 +168,7 @@
       <v-icon
         size="small"
         class="me-2"
-        @click="editItem(item.raw)"
+        @click="showDialog(item.raw)"
       >
         mdi-pencil
       </v-icon>
@@ -185,13 +185,16 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { VDataTable } from 'vuetify/labs/VDataTable'
+import { onMounted } from 'vue';
+import { useUsersStore } from '@/store/users.js';
 
+const userStore = useUsersStore();
 const dialog = ref(false)
-const dialogDelete = ref(false)
+
 const headers = [
-  { title: 'Id_usuario', key: 'id_usuario'},
-  { title: 'Nombre', key: 'nombre' },
-  { title: 'Apellidos', key: 'apellidos' },
+  { title: 'Id_usuario', key: 'id'},
+  { title: 'Nombre', key: 'nombre_usu' },
+  { title: 'Apellidos', key: 'apellidos_usu' },
   { title: 'Password', key: 'password' },
   { title: 'Email', key: 'email' },
   { title: 'Telefono', key: 'telefono' },
@@ -201,65 +204,27 @@ const headers = [
   { title: 'Codigo Postal', key: 'codigo_postal' },
   { title: 'Actions', key: 'actions', sortable: false },
 ]
-const users = ref([
-  {
-      id_usuario: '1',
-      nombre: 'Jorge',
-      apellidos: 'Gutierrez',
-      password: '1234',
-      email: 'jorge@gmail.com',
-      telefono: '4611892968',
-      ciudad: 'celaya',
-      estado: 'guanajuato',
-      direccion: 'calle #529',
-      codigo_postal: '38010'
-    },
-])
+
+onMounted(() => {
+  userStore.fillUserList();
+})
+
 const editedIndex = ref(-1)
-const editedItem = ref({
-  id_usuario: '',
-  nombre: '',
-  apellidos: '',
-  password: '',
-  email: '',
-  telefono: '',
-  ciudad: '',
-  estado: '',
-  direccion: '',
-  codigo_postal: ''
-})
-const defaultItem = ref({
-  id_usuario: '',
-  nombre: '',
-  apellidos: '',
-  password: '',
-  email: '',
-  telefono: '',
-  ciudad: '',
-  estado: '',
-  direccion: '',
-  codigo_postal: ''
-})
+const editedItem = ref({})
 
 const formTitle = computed(() => {
   return editedIndex.value === -1 ? 'Nuevo usuario' : 'Editar usuario'
 })
 
-const editItem = (item) => {
-  editedIndex.value = users.value.indexOf(item)
-  editedItem.value = { ...item }
+const showDialog = (item) => {
+  editedItem = item ||{}
   dialog.value = true
 }
 
-const deleteItem = (item) => {
-  editedIndex.value = users.value.indexOf(item)
-  editedItem.value = { ...item }
-  dialogDelete.value = true
-}
-
-const deleteItemConfirm = () => {
-  users.value.splice(editedIndex.value, 1)
-  closeDelete()
+const save = () =>{
+  userStore.addUser(editedItem)
+  userStore.fillUserList();
+  close()
 }
 
 const close = () => {
@@ -268,18 +233,4 @@ const close = () => {
   editedIndex.value = -1
 }
 
-const closeDelete = () => {
-  dialogDelete.value = false
-  editedItem.value = { ...defaultItem.value }
-  editedIndex.value = -1
-}
-
-const save = () => {
-  if (editedIndex.value > -1) {
-    Object.assign(users.value[editedIndex.value], editedItem.value)
-  } else {
-    users.value.push(editedItem.value)
-  }
-  close()
-}
 </script>
