@@ -19,6 +19,29 @@ export const useCartStore = defineStore('cart', {
     },
     //[id:{data}]
     actions: {
+        finishTransaction(dir,user,seller){ 
+            let url=import.meta.env.VITE_APP_API_HOST+":"+import.meta.env.VITE_APP_API_PORT+'/ordenes_de_compra' 
+            let orden;
+            let codigo=(Math.random() + 1).toString(36).substring(7)
+            const timeElapsed = Date.now();
+            const date = new Date(timeElapsed);
+               axios.post(url,{
+                   fecha: date,
+                   total: this.total,
+                   a_domicilio: "true",
+                   direccion:dir,
+                   clave_compra:codigo,
+                   id_usuario:user,
+                   id_vendedor:seller,
+                   id_metodop:2,
+              }).then(res=>{
+                 orden=res.id 
+               })
+            if(this.cupones.codigo!=undefined){
+
+            }
+            
+        },
         findCupon(cupon){
             let data
             let url=import.meta.env.VITE_APP_API_HOST+":"+import.meta.env.VITE_APP_API_PORT+'/search/cupones_desc' 

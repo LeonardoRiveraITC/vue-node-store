@@ -100,5 +100,6 @@ const login=()=>{
 }
 const register=()=>{
         userStore.register(firstName.value,lastName.value,email.value,password.value,phone.value,city.value,state.value,dir.value,cp.value)
+        router.push({name:'login'})
     }
 </script>

@@ -5,11 +5,11 @@
           class="mx-auto my-12 px-6 py-8"
           elevation="13"
           append-icon="mdi-account" 
-          max-width="30%"
+          max-width="60%"
           color="black"
           theme="dark"
         >
-          <div class="d-flex flex-no-wrap justify-space-between">
+          <div class="ma-auto">
             <div>
               <v-card-title class="text-h3">
                 Mi perfil

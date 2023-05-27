@@ -24,7 +24,7 @@
 
         <v-btn
          :disabled="!form"
-          @click="login"
+          @click="login()"
           block
           color="success"
           size="large"
@@ -50,8 +50,7 @@ const form=ref(false);
 const required = (v) =>{return !!v || 'Field is required'}
 const userStore=useUserStore();
 const login=()=>{
-  console.log(user.value)
-  userStore.login(user.value);
+  userStore.login(user.value,password.value);
   router.push({ name: 'home'})
 }
 </script>

@@ -3,6 +3,7 @@ import axios from 'axios'
 export const useUserStore = defineStore('user', {
   state: () => ({ 
     username: '',
+    id:'',
     firstName:'',
     lastName:'',
     email:'',
@@ -46,12 +47,13 @@ export const useUserStore = defineStore('user', {
             password:pass
         }).then(res=>{
             this.username=res.data.nombre_usu
+            this.id=res.data.id
             this.firstName=res.data.nombre_usu
             this.lastName=res.data.apellidos_usu
             this.email=res.data.email
             this.phone=res.data.telefono
             this.city=res.data.ciudad
-            this.state=res.data.state
+            this.state=res.data.estado
             this.dir=res.data.direccion
             this.cp=res.data.codigo_postal
             this.role=res.data.id_rol
@@ -72,6 +74,7 @@ export const useUserStore = defineStore('user', {
             password:pass
         }).then(res=>{
             this.username=res.data.nombre_usu
+            this.id=res.data.id
             this.firstName=res.data.nombre_usu
             this.lastName=res.data.apellidos_usu
             this.email=res.data.email

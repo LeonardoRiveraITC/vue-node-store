@@ -1,6 +1,8 @@
 <template>
     <v-container>
         <v-card 
+            max-width="500"
+            height="300"
            @click="toPage(product.id)"> 
             <v-row no-gutters>
                 <v-col> 
@@ -29,7 +31,7 @@
                         size="125"
                         rounded="0"
                         >
-                        <v-img :src="product.imagen"></v-img>
+                        <v-img max-height="100" max-width="100" :src="product.imagen"></v-img>
                     </v-avatar>
                 </v-col>
             </v-row>
