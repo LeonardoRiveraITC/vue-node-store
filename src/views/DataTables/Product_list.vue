@@ -22,6 +22,7 @@
         >
           <template v-slot:activator="{ props }">
             <v-btn
+            @click="editMode=false"
               color="primary"
               dark
               class="mb-2"
@@ -44,7 +45,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.Producto"
+                      v-model="editedItem.nombre_p"
                       label="Producto"
                     ></v-text-field>
                   </v-col>
@@ -54,7 +55,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.Descripcion"
+                      v-model="editedItem.descripcion"
                       label="Descripcion"
                     ></v-text-field>
                   </v-col>
@@ -64,7 +65,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.Precio"
+                      v-model="editedItem.precio"
                       label="Precio"
                     ></v-text-field>
                   </v-col>
@@ -74,7 +75,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.Imagen"
+                      v-model="editedItem.imagen"
                       label="Imagen"
                     ></v-text-field>
                   </v-col>
@@ -84,7 +85,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.Id_categoria"
+                      v-model="editedItem.id_categoria"
                       label="Id_categoria"
                     ></v-text-field>
                   </v-col>
@@ -94,7 +95,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.Id_vendedor"
+                      v-model="editedItem.id_vendedor"
                       label="Id_vendedor"
                     ></v-text-field>
                   </v-col>
@@ -103,30 +104,6 @@
                     sm="6"
                     md="4"
                   >
-                    <v-text-field
-                      v-model="editedItem.estado"
-                      label="Estado"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.direccion"
-                      label="Direccion"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.codigo_postal"
-                      label="Codigo Postal"
-                    ></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -142,9 +119,18 @@
                 Cancelar
               </v-btn>
               <v-btn
+                v-if="!editMode"
                 color="blue-darken-1"
                 variant="text"
-                @click="save"
+                @click="save(editedItem)"
+              >
+                Guardar
+              </v-btn>
+              <v-btn
+                v-if="editMode"
+                color="blue-darken-1"
+                variant="text"
+                @click="editProduct(editedItem)"
               >
                 Guardar
               </v-btn>
@@ -157,7 +143,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue-darken-1" variant="text" @click="closeDelete">Cancelar</v-btn>
-              <v-btn color="blue-darken-1" variant="text" @click="deleteItemConfirm">Borrar</v-btn>
+              <v-btn color="blue-darken-1" variant="text" @click="deleteProduct(editedItem.id)">Borrar</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -168,13 +154,13 @@
       <v-icon
         size="small"
         class="me-2"
-        @click="editItem(item.raw)"
+        @click="editMode=true;showDialog(item.raw)"
       >
         mdi-pencil
       </v-icon>
       <v-icon
         size="small"
-        @click="deleteItem(item.raw)"
+        @click="deleteProduct(item.raw.id)"
       >
         mdi-delete
       </v-icon>
@@ -190,7 +176,6 @@ import { useProductStore } from '@/store/products.js';
 
 const productStore = useProductStore();
 const dialog = ref(false)
-const dialogDelete = ref(false)
 
 const headers = [
   { title: 'Id_producto', key: 'id'},
@@ -207,65 +192,42 @@ onMounted(() => {
   productStore.fillItemList();
 })
 
+const editMode=ref(false)
 const editedIndex = ref(-1)
-const editedItem = ref({
-  Id_producto: '',
-  Producto: '',
-  Descripcion: '',
-  Precio: '',
-  Imagen: '',
-  Id_categoria: '',
-  Id_vendedor: ''
-})
-const defaultItem = ref({
-  Id_producto: '',
-  Producto: '',
-  Descripcion: '',
-  Precio: '',
-  Imagen: '',
-  Id_categoria: '',
-  Id_vendedor: ''
-})
+let editedItem = ref({})
 
 const formTitle = computed(() => {
   return editedIndex.value === -1 ? 'Nuevo producto' : 'Editar producto'
 })
 
-const editItem = (item) => {
-  editedIndex.value = products.value.indexOf(item)
-  editedItem.value = { ...item }
+const showDialog = (item) => {
+  editedItem = item ||{}
   dialog.value = true
 }
 
-const deleteItem = (item) => {
-  editedIndex.value = products.value.indexOf(item)
-  editedItem.value = { ...item }
-  dialogDelete.value = true
+const clean = () =>{
+    editedItem=[]
 }
 
-const deleteItemConfirm = () => {
-  products.value.splice(editedIndex.value, 1)
-  closeDelete()
+const save = (editedItem) =>{
+  productStore.addProduct(editedItem)
+  setTimeout(() => {productStore.fillItemList},1500);
+  close()
+}
+const deleteProduct = (id) =>{
+  productStore.deleteProduct(id)
+  setTimeout(() => {productStore.fillItemList},1500);
+  close()
+}
+const editProduct = (editedItem) =>{
+  productStore.editProduct(editedItem)
+  setTimeout(() => {productStore.fillItemList},1400);
+  close()
 }
 
 const close = () => {
   dialog.value = false
-  editedItem.value = { ...defaultItem.value }
   editedIndex.value = -1
 }
 
-const closeDelete = () => {
-  dialogDelete.value = false
-  editedItem.value = { ...defaultItem.value }
-  editedIndex.value = -1
-}
-
-const save = () => {
-  if (editedIndex.value > -1) {
-    Object.assign(products.value[editedIndex.value], editedItem.value)
-  } else {
-    products.value.push(editedItem.value)
-  }
-  close()
-}
 </script>

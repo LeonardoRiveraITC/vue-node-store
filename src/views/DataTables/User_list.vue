@@ -215,7 +215,6 @@ const headers = [
   { title: 'Actions', key: 'actions', sortable: false },
 ]
 
-
 onMounted(() => {
   userStore.fillUserList();
 })
@@ -236,6 +235,7 @@ const showDialog = (item) => {
 const clean = () =>{
     editedItem=[]
 }
+
 const save = (editedItem) =>{
   userStore.addUser(editedItem)
   setTimeout(() => {userStore.fillUserList()},1500);

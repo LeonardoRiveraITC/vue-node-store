@@ -22,6 +22,7 @@
         >
           <template v-slot:activator="{ props }">
             <v-btn
+            @click="editMode=false"
               color="primary"
               dark
               class="mb-2"
@@ -41,7 +42,7 @@
                   <v-col
                   >
                     <v-text-field
-                      v-model="editedItem.Categoria"
+                      v-model="editedItem.categoria"
                       label="Categoria"
                     ></v-text-field>
                   </v-col>
@@ -59,22 +60,31 @@
                 Cancelar
               </v-btn>
               <v-btn
+                v-if="!editMode"
                 color="blue-darken-1"
                 variant="text"
-                @click="save"
+                @click="save(editedItem)"
+              >
+                Guardar
+              </v-btn>
+              <v-btn
+                v-if="editMode"
+                color="blue-darken-1"
+                variant="text"
+                @click="editCategory(editedItem)"
               >
                 Guardar
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-dialog max-width="500px">
           <v-card>
             <v-card-title class="text-h5">Seguro que deseas borrar esta categoria?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue-darken-1" variant="text" @click="closeDelete">Cancelar</v-btn>
-              <v-btn color="blue-darken-1" variant="text" @click="deleteItemConfirm">Borrar</v-btn>
+              <v-btn color="blue-darken-1" variant="text" @click="deleteCategory(editedItem.id)">Borrar</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -85,13 +95,13 @@
       <v-icon
         size="small"
         class="me-2"
-        @click="editItem(item.raw)"
+        @click="editMode=true;showDialog(item.raw)"
       >
         mdi-pencil
       </v-icon>
       <v-icon
         size="small"
-        @click="deleteItem(item.raw)"
+        @click="deleteCategory(item.raw.id)"
       >
         mdi-delete
       </v-icon>
@@ -107,7 +117,7 @@ import { useCategoryStore } from '@/store/category.js';
 
 const categoryStore = useCategoryStore();
 const dialog = ref(false)
-const dialogDelete = ref(false)
+
 const headers = [
   { title: 'Id_categoria', key: 'id'},
   { title: 'Categoria', key: 'categoria' },
@@ -118,55 +128,43 @@ onMounted(() => {
   categoryStore.fillCategoryList();
 })
 
+const editMode = ref(false)
 const editedIndex = ref(-1)
-const editedItem = ref({
-  Id_categoria: '',
-  Categoria: ''
-})
-const defaultItem = ref({
-  Id_categoria: '',
-  Categoria: ''
-})
+let editedItem = ref({})
 
 const formTitle = computed(() => {
   return editedIndex.value === -1 ? 'Nueva categoria' : 'Editar categoria'
 })
 
-const editItem = (item) => {
-  editedIndex.value = category.value.indexOf(item)
-  editedItem.value = { ...item }
+const showDialog = (item) => {
+  editedItem = item ||{}
   dialog.value = true
 }
 
-const deleteItem = (item) => {
-  editedIndex.value = category.value.indexOf(item)
-  editedItem.value = { ...item }
-  dialogDelete.value = true
+const clean = () =>{
+  editedItem=[]
 }
 
-const deleteItemConfirm = () => {
-  category.value.splice(editedIndex.value, 1)
-  closeDelete()
+const save = (editedItem) => {
+  categoryStore.addCategory(editedItem)
+  setTimeout(() => {categoryStore.fillCategoryList()},1500)
+  close()
+}
+
+const deleteCategory = (id) =>{
+  categoryStore.deleteCategory(id)
+  setTimeout(() => {categoryStore.fillCategoryList()},1500)
+  close()
+}
+
+const editCategory = (editedItem) =>{
+  categoryStore.editCategory(editedItem)
+  setTimeout(() => {categoryStore.fillCategoryList()},1400)
+  close()
 }
 
 const close = () => {
   dialog.value = false
-  editedItem.value = { ...defaultItem.value }
   editedIndex.value = -1
-}
-
-const closeDelete = () => {
-  dialogDelete.value = false
-  editedItem.value = { ...defaultItem.value }
-  editedIndex.value = -1
-}
-
-const save = () => {
-  if (editedIndex.value > -1) {
-    Object.assign(category.value[editedIndex.value], editedItem.value)
-  } else {
-    category.value.push(editedItem.value)
-  }
-  close()
 }
 </script>
